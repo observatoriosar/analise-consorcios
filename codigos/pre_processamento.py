@@ -8,6 +8,7 @@ Analise Consorcios
 
 # importar bibliotecas
 import pandas as pd
+import numpy as np 
 
 #=============================================
 # preprocessamento dos municipios/consorcios
@@ -36,7 +37,10 @@ for i in range(len(df)):
     print(df['municipio'][i])
     # criar listas de cada pais
     municipio = ((df['municipio'][i]+'_') * 16).split('_')[:-1]
-    consorcio = ((df['consorcio'][i]+'_') * 16).split('_')[:-1]
+    try: 
+        consorcio = ((df['consorcio'][i]+'_') * 16).split('_')[:-1]
+    except:
+        consorcio = [np.nan]*16
     anos = list(range(2002, 2018))
     tendencia = list(range(1,17))
     nivel = [0]*(df['ano_ingresso'][i] - 2002) + [1]*(2018-df['ano_ingresso'][i]) 
@@ -80,7 +84,7 @@ pib['anos'] = pib['Ano'].map(lambda x: int(x))
 pib.drop(['Município', 'Ano'],axis=1, inplace=True)
 
 # combinar com base de dados dos consorcios
-dataset = pd.merge(dataset, pib, on=['municipio', 'anos'])
+datasetx = pd.merge(dataset, pib, on=['municipio', 'anos'])
 
 
 #========================
@@ -96,4 +100,4 @@ dataset = pd.merge(dataset, pib, on=['municipio', 'anos'])
 # salvar dados
 #====================
 
-dataset.to_csv('dataset.csv', index=False)
+datasetx.to_csv('dataset.csv', index=False)
