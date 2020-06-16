@@ -84,13 +84,22 @@ pib['anos'] = pib['Ano'].map(lambda x: int(x))
 pib.drop(['Município', 'Ano'],axis=1, inplace=True)
 
 # combinar com base de dados dos consorcios
-datasetx = pd.merge(dataset, pib, on=['municipio', 'anos'])
+dataset = pd.merge(dataset, pib, on=['municipio', 'anos'])
 
 
 #========================
 # incluir dados do snis
 #=======================
 
+snis = pd.read_csv('dados/SNIS.txt', sep=';')
+
+snis.columns = [ 'Município', 'Estado', 'Ano de Referência',
+       'Código do Prestador', 'Prestador', 'Sigla do Prestador',
+       'Natureza Jurídica',
+       'FN222',
+       'IN005', 'empty']
+
+snis[['Município','Ano de Referência', 'FN222','IN005' ]]
 
 #========================
 # incluir dados de idh
@@ -100,4 +109,4 @@ datasetx = pd.merge(dataset, pib, on=['municipio', 'anos'])
 # salvar dados
 #====================
 
-datasetx.to_csv('dataset.csv', index=False)
+dataset.to_csv('dataset.csv', index=False)

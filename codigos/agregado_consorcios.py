@@ -10,7 +10,6 @@ Analise Consorcios
 import pandas as pd
 import numpy as np 
 
-
 # importar base
 df = pd.read_csv('dataset.csv')
 
