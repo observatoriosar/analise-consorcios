@@ -62,5 +62,75 @@ perc_icms = rbind ((df_icms %>% filter(!ano %in% c("1 semestre 2004", "2 semestr
 #=========================#
 
 #2. Repasses 2004-2012
+# 2.1 - 2004
 # ~~~ Ajustes iniciais ~~~ #
-#Carregar todas as planilhas
+#Carregar planilhas
+excel_sheets("dados/Repasses_ICMS_Liquidos_2004.xlsx")
+
+planilhas = excel_sheets("dados/Repasses_ICMS_Liquidos_2004.xlsx")
+all_2004 = lapply(planilhas, function(x) read_excel("dados/Repasses_ICMS_Liquidos_2004.xlsx", sheet = x))
+names(all_2004) = excel_sheets("dados/Repasses_ICMS_Liquidos_2004.xlsx")
+View(all_2004)
+
+#Selecionar municipios
+meses04 = all_2004[[1]]
+meses04 = meses04[,c(1)]
+
+#agrupar acumulado mensal
+meses04 = cbind(meses04, as.data.frame(sapply(all_2004, `[[`, "acumulado")))
+
+#transformar em variaveis numericas
+meses04 <- data.frame(lapply(meses04, function(x) {
+  gsub("\\,", ".", x)
+}))
+
+# @craudi transforma as colunas 2:13 em numerica pra executar as linhas abaixo:
+
+mutate(meses04, total2004 = rowSums(.[2:13]))
+
+
+
+# 2.2 - 2005
+# ~~~ Ajustes iniciais ~~~ #
+#Carregar planilhas
+excel_sheets("dados/Repasses_ICMS_Liquidos_2005.xlsx")
+
+planilhas = excel_sheets("dados/Repasses_ICMS_Liquidos_2005.xlsx")
+all_2005 = lapply(planilhas, function(x) read_excel("dados/Repasses_ICMS_Liquidos_2005.xlsx", sheet = x))
+names(all_2005) = excel_sheets("dados/Repasses_ICMS_Liquidos_2005.xlsx")
+View(all_2005)
+
+#Selecionar municipios
+meses05 = all_2005[[1]]
+meses05 = meses05[,c(1)]
+
+#agrupar acumulado mensal
+meses05 = cbind(meses05, as.data.frame(sapply(all_2005, `[[`, "acumulado")))
+
+#transformar em variaveis numericas
+meses05 <- data.frame(lapply(meses05, function(x) {
+  gsub("\\,", ".", x)
+}))
+
+# @craudi transforma as colunas 2:13 em numerica pra executar as linhas abaixo:
+
+mutate(meses05, total2005 = rowSums(.[2:13]))
+
+
+
+#2.3 - 2006-2012
+# ~~~ Ajustes iniciais ~~~ #
+#Carregar planilhas
+excel_sheets("dados/Repasses_ICMS_Liquidos_2006-2012.xlsx")
+
+planilhas = excel_sheets("dados/Repasses_ICMS_Liquidos_2006-2012.xlsx")
+list_all = lapply(planilhas, function(x) read_excel("dados/Repasses_ICMS_Liquidos_2006-2012.xlsx", sheet = x))
+names(list_all) = excel_sheets("dados/Repasses_ICMS_Liquidos_2006-2012.xlsx")
+
+#Selecionar municipios
+icms_06a12 = list_all[[1]]
+icms_06a12 = icms_06a12[,c(1)]
+
+#agrupar acumulado mensal
+icms_06a12 = cbind(icms_06a12, as.data.frame(sapply(list_all, `[[`, "Acumulado")))
+
