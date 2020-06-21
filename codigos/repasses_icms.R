@@ -61,7 +61,7 @@ perc_icms = rbind ((df_icms %>% filter(!ano %in% c("1 semestre 2004", "2 semestr
 
 #=========================#
 
-#2. Repasses 2004-2012
+#2. Repasses Liquidos 2004-2012
 # 2.1 - 2004
 # ~~~ Ajustes iniciais ~~~ #
 #Carregar planilhas
@@ -79,14 +79,21 @@ meses04 = meses04[,c(1)]
 #agrupar acumulado mensal
 meses04 = cbind(meses04, as.data.frame(sapply(all_2004, `[[`, "acumulado")))
 
-#transformar em variaveis numericas
+#somar meses
+# - excluir pontos
+meses04 <- data.frame(lapply(meses04, function(x) {
+  gsub("\\.", "", x)
+}))
+# - decimais com virgulas
 meses04 <- data.frame(lapply(meses04, function(x) {
   gsub("\\,", ".", x)
 }))
+# - transformar em variaveis numericas
+meses04[,2:13] = data.frame(sapply(meses04[,2:13], function(x) as.numeric(as.character(x))))
 
-# @craudi transforma as colunas 2:13 em numerica pra executar as linhas abaixo:
-
-mutate(meses04, total2004 = rowSums(.[2:13]))
+# - somar                            
+meses04$total2004 = rowSums(meses04[,c(-1)])
+df1
 
 
 
@@ -107,15 +114,20 @@ meses05 = meses05[,c(1)]
 #agrupar acumulado mensal
 meses05 = cbind(meses05, as.data.frame(sapply(all_2005, `[[`, "acumulado")))
 
-#transformar em variaveis numericas
+#somar meses
+# - excluir pontos
+meses05 <- data.frame(lapply(meses05, function(x) {
+  gsub("\\.", "", x)
+}))
+# - decimais com virgulas
 meses05 <- data.frame(lapply(meses05, function(x) {
   gsub("\\,", ".", x)
 }))
+# - transformar em variaveis numericas
+meses05[,2:13] = data.frame(sapply(meses05[,2:13], function(x) as.numeric(as.character(x))))
 
-# @craudi transforma as colunas 2:13 em numerica pra executar as linhas abaixo:
-
-mutate(meses05, total2005 = rowSums(.[2:13]))
-
+# - somar                            
+meses05$total2005 = rowSums(meses05[,c(-1)])
 
 
 #2.3 - 2006-2012
@@ -133,4 +145,12 @@ icms_06a12 = icms_06a12[,c(1)]
 
 #agrupar acumulado mensal
 icms_06a12 = cbind(icms_06a12, as.data.frame(sapply(list_all, `[[`, "Acumulado")))
+
+#2.4. Juntar anos
+icms_liq = cbind(meses04[,c(1,14)], meses05[,c(14)], icms_06a12[,c(2:8)])
+colnames(icms_liq)[2] = "2004"
+colnames(icms_liq)[3] = "2005"
+
+
+#3. Calcular ICMS Ambiental 2004-2012
 

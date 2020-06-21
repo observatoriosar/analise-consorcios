@@ -1,0 +1,20 @@
+---
+title: "Análise Repasses ICMS"
+output: html_notebook
+'---
+
+Sumário:
+  1. Percentual de resíduos sólidos (RS) e unidades de conservação (UC) por ano (2004-2012)
+  2. Repasses Liquidos 2004-2012
+  3. Calcular ICMS Ambiental 2004-2012
+  4. Repasses ICMS Ambiental 2013-2019
+
+```{r}
+plot(cars)
+```
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
+
+The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
