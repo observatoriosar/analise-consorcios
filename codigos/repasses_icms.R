@@ -130,6 +130,7 @@ meses05[,2:13] = data.frame(sapply(meses05[,2:13], function(x) as.numeric(as.cha
 meses05$total2005 = rowSums(meses05[,c(-1)])
 
 
+
 #2.3 - 2006-2012
 # ~~~ Ajustes iniciais ~~~ #
 #Carregar planilhas
@@ -151,6 +152,14 @@ icms_liq = cbind(meses04[,c(1,14)], meses05[,c(14)], icms_06a12[,c(2:8)])
 colnames(icms_liq)[2] = "2004"
 colnames(icms_liq)[3] = "2005"
 
+#=========================#
 
-#3. Calcular ICMS Ambiental 2004-2012
+#3. Calcular ICMS Ambiental 2004-2012 (@craudi)
 
+# para cada município multiplicar o valor repassado  por ano (coluna de icms_liq) pelo percentual de RS (perc_icsm).
+#E depois fazer o mesmo com o percentual de UC
+
+#teste
+for (i=0 ; i< numero de cidades ; i++) {
+  repasse * rs = X
+  repasse + uc = Y}
