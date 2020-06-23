@@ -151,12 +151,11 @@ colnames(icms_liq)[3] = "2005"
 
 #=========================#
 
-#3. Calcular ICMS Ambiental 2004-2012 (@craudi)
 
 # para cada município multiplicar o valor repassado  por ano (coluna de icms_liq) pelo percentual de RS (perc_icsm).
 #E depois fazer o mesmo com o percentual de UC
 
-# nem precisa fazer loop, segue abaixo passos para solucoes:
+# nem precisa fazer loop, segue abaixo passos para solucoes (ver ponto 4 antes de começar):
 
 # 1. usar funcoes reshape/pivot para transformar colunas de anos em icms_liq em 
 # uma coluna unica com os anos e outra coluna com os valores, que fica:
@@ -170,8 +169,10 @@ colnames(icms_liq)[3] = "2005"
 # multiplicar 'repasse' por 'uc', salvar em coluna; 
 
 # 4. somar colunas resultantes do passo 3
-# ATENCAO: para esse processa estar correto, a porcentagem perc_icms
+# ATENCAO!!!!!!!: para esse processa estar correto, a porcentagem perc_icms
 # tem que ser relativa ao total que o municipio recebeu, nao ao total que todos os municipios receberam naquele ano
 # verificar isso
 
+
+# :* txi amu
 
