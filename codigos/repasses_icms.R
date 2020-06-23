@@ -160,13 +160,15 @@ colnames(icms_liq)[3] = "2005"
 # 1. usar funcoes reshape/pivot para transformar colunas de anos em icms_liq em 
 # uma coluna unica com os anos e outra coluna com os valores, que fica:
 # | municipios  | anos   | repasse |
-
+icms_liq = gather(icms_liq, ano, repasses, 2:10)
+names(icms_liq) = c("municipio","ano","repasses")
 
 # 2. merge icms_liq com perc_icsm, baseado em 'municpio' e 'ano'
-
+df = merge(perc_icms, icms_liq)
 
 # 3. multiplicar 'repasse' por 'rs', salvar em coluna; 
 # multiplicar 'repasse' por 'uc', salvar em coluna; 
+df$repasses_rs = df$repasses*df$rs
 
 # 4. somar colunas resultantes do passo 3
 # ATENCAO!!!!!!!: para esse processa estar correto, a porcentagem perc_icms
