@@ -7,7 +7,7 @@
 #------------------------#
 
 #Carregar pacotes [1. Analises 2. DataViz]
-library(tidyverse)
+#library(tidyverse) # nunca carregar tidyverse todo, apenas os pacotes necessarios, consome mta memoria 
 library(tidyselect)
 library(readxl)
 library(plyr)
@@ -93,8 +93,6 @@ meses04[,2:13] = data.frame(sapply(meses04[,2:13], function(x) as.numeric(as.cha
 
 # - somar                            
 meses04$total2004 = rowSums(meses04[,c(-1)])
-df1
-
 
 
 # 2.2 - 2005
@@ -105,7 +103,6 @@ excel_sheets("dados/Repasses_ICMS_Liquidos_2005.xlsx")
 planilhas = excel_sheets("dados/Repasses_ICMS_Liquidos_2005.xlsx")
 all_2005 = lapply(planilhas, function(x) read_excel("dados/Repasses_ICMS_Liquidos_2005.xlsx", sheet = x))
 names(all_2005) = excel_sheets("dados/Repasses_ICMS_Liquidos_2005.xlsx")
-View(all_2005)
 
 #Selecionar municipios
 meses05 = all_2005[[1]]
@@ -159,7 +156,22 @@ colnames(icms_liq)[3] = "2005"
 # para cada município multiplicar o valor repassado  por ano (coluna de icms_liq) pelo percentual de RS (perc_icsm).
 #E depois fazer o mesmo com o percentual de UC
 
-#teste
-for (i=0 ; i< numero de cidades ; i++) {
-  repasse * rs = X
-  repasse + uc = Y}
+# nem precisa fazer loop, segue abaixo passos para solucoes:
+
+# 1. usar funcoes reshape/pivot para transformar colunas de anos em icms_liq em 
+# uma coluna unica com os anos e outra coluna com os valores, que fica:
+# | municipios  | anos   | repasse |
+
+
+# 2. merge icms_liq com perc_icsm, baseado em 'municpio' e 'ano'
+
+
+# 3. multiplicar 'repasse' por 'rs', salvar em coluna; 
+# multiplicar 'repasse' por 'uc', salvar em coluna; 
+
+# 4. somar colunas resultantes do passo 3
+# ATENCAO: para esse processa estar correto, a porcentagem perc_icms
+# tem que ser relativa ao total que o municipio recebeu, nao ao total que todos os municipios receberam naquele ano
+# verificar isso
+
+
